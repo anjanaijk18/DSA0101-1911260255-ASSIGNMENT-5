@@ -20,14 +20,41 @@ public:
     ClaimAboveCoverage() : BillingError("Claim exceeds coverage limit") {}
 };
 
-class UnknownPackage : public BillingError
+void validateBill(double amount)
 {
-public:
-    UnknownPackage() : BillingError("Unknown government package") {}
-};
+    if(amount < 0)
+        throw InvalidCharge();
 
-class MissingPatientRecord : public BillingError
+    cout << "Bill amount is valid" << endl;
+}
+
+void validateClaim(double claim, double limit)
 {
-public:
-    MissingPatientRecord() : BillingError("Patient record not found") {}
-};
+    if(claim > limit)
+        throw ClaimAboveCoverage();
+
+    cout << "Insurance claim is valid" << endl;
+}
+
+int main()
+{
+    try
+    {
+        validateBill(-500);
+    }
+    catch(const BillingError& e)
+    {
+        cout << "Billing Error: " << e.what() << endl;
+    }
+
+    try
+    {
+        validateClaim(15000, 10000);
+    }
+    catch(const BillingError& e)
+    {
+        cout << "Billing Error: " << e.what() << endl;
+    }
+
+    return 0;
+}
