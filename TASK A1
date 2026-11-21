@@ -23,7 +23,119 @@ BEGIN
             DISPLAY error message
             CONTINUE to next bill
 
-    END FOR
+    END FOR#include <iostream>
+#include <vector>
+#include <stdexcept>
+using namespace std;
+
+class Bill {
+public:
+    virtual double total() = 0;
+    virtual string type() = 0;
+    virtual void details() = 0;
+    virtual ~Bill() {}
+};
+
+class ConsultationBill : public Bill {
+    double amount;
+
+public:
+    ConsultationBill(double a) {
+        amount = a;
+    }
+
+    double total() override {
+        if (amount < 0)
+            throw runtime_error("Invalid consultation bill amount");
+        return amount;
+    }
+
+    string type() override {
+        return "Consultation Bill";
+    }
+
+    void details() override {
+        cout << "Doctor consultation charge" << endl;
+    }
+};
+
+class LabBill : public Bill {
+    double amount;
+
+public:
+    LabBill(double a) {
+        amount = a;
+    }
+
+    double total() override {
+        if (amount < 0)
+            throw runtime_error("Invalid lab bill amount");
+        return amount;
+    }
+
+    string type() override {
+        return "Lab Bill";
+    }
+
+    void details() override {
+        cout << "Laboratory test charge" << endl;
+    }
+};
+
+class PharmacyBill : public Bill {
+    double amount;
+
+public:
+    PharmacyBill(double a) {
+        amount = a;
+    }
+
+    double total() override {
+        if (amount < 0)
+            throw runtime_error("Invalid pharmacy bill amount");
+        return amount;
+    }
+
+    string type() override {
+        return "Pharmacy Bill";
+    }
+
+    void details() override {
+        cout << "Medicine purchase charge" << endl;
+    }
+};
+
+int main() {
+    ConsultationBill b1(500);
+    LabBill b2(1200);
+    PharmacyBill b3(800);
+    LabBill b4(-200);
+
+    Bill* bills[] = {&b1, &b2, &b3, &b4};
+
+    double totalAmount = 0;
+
+    for (Bill* bill : bills) {
+        try {
+            double amount = bill->total();
+
+            cout << "\nBill Type: " << bill->type() << endl;
+            bill->details();
+            cout << "Amount: Rs. " << amount << endl;
+
+            totalAmount += amount;
+        }
+        catch (const exception& e) {
+            cout << "\nError: " << e.what() << endl;
+            continue;
+        }
+    }
+
+    cout << "\nTotal Amount: Rs. " << totalAmount << endl;
+
+    return 0;
+}
+
 
     DISPLAY totalAmount
 
