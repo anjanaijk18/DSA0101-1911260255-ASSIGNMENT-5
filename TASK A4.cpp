@@ -1,4 +1,5 @@
 Pseudocode – Hospital Billing Exception Handling
+
 START
 
 DEFINE class BillingError
