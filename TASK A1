@@ -1,0 +1,31 @@
+PSEUDO CODE :
+
+ALGORITHM ProcessAllBills
+
+BEGIN
+
+    CREATE an array of Bill pointers
+
+    totalAmount = 0
+
+    FOR each bill in the array
+
+        TRY
+            amount = bill.total()
+
+            DISPLAY bill.type()
+            DISPLAY bill details
+            DISPLAY amount
+
+            totalAmount = totalAmount + amount
+
+        CATCH error
+            DISPLAY error message
+            CONTINUE to next bill
+
+    END FOR
+
+    DISPLAY totalAmount
+
+END
+
