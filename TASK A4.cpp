@@ -1,3 +1,63 @@
+Pseudocode – Hospital Billing Exception Handling
+START
+
+DEFINE class BillingError
+    INHERIT from RuntimeError
+    CONSTRUCTOR(message)
+        CALL parent constructor with message
+
+DEFINE class InvalidCharge
+    INHERIT from BillingError
+    CONSTRUCTOR
+        SET message = "Negative bill amount"
+
+DEFINE class ClaimAboveCoverage
+    INHERIT from BillingError
+    CONSTRUCTOR
+        SET message = "Claim exceeds coverage limit"
+
+
+FUNCTION validateBill(amount)
+
+    IF amount < 0 THEN
+        THROW InvalidCharge
+    ELSE
+        DISPLAY "Bill amount is valid"
+    END IF
+
+END FUNCTION
+
+
+FUNCTION validateClaim(claim, limit)
+
+    IF claim > limit THEN
+        THROW ClaimAboveCoverage
+    ELSE
+        DISPLAY "Insurance claim is valid"
+    END IF
+
+END FUNCTION
+
+
+MAIN
+
+    TRY
+        CALL validateBill(-500)
+
+    CATCH BillingError e
+        DISPLAY "Billing Error: ", e.message
+    END TRY
+
+
+    TRY
+        CALL validateClaim(15000, 10000)
+
+    CATCH BillingError e
+        DISPLAY "Billing Error: ", e.message
+    END TRY
+
+STOP
+
 #include <iostream>
 #include <stdexcept>
 using namespace std;
