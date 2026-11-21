@@ -1,3 +1,28 @@
+Pseudocode
+
+START
+
+Create a base class Bill
+    Declare virtual destructor
+    Declare virtual function total()
+    Declare function show()
+
+Create derived class OPBill
+    Override destructor
+    Override total() to return 500
+
+MAIN
+    Create a base class pointer b
+    Allocate an OPBill object to b
+
+    Call b->show()
+    Call b->total()
+
+    Delete b
+    Print newline
+
+STOP
+
 #include <iostream>
 using namespace std;
 
