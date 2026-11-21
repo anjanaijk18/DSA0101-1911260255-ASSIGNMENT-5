@@ -45,40 +45,41 @@ STOP
 #include <string>
 using namespace std;
 
-struct Guard
-{
-string n;
+struct Guard {
+    string n;
 
-explicit Guard(const string& s) : n(s) {}
+    Guard(string s) {
+        n = s;
+    }
 
-~Guard()
-{
-    cout << '~' << n << '\n';
-}
+    ~Guard() {
+        cout << "~" << n;
+    }
 };
 
-void f()
-{
-Guard g("f");
-throw 42;
+void f() {
+    Guard g("f");
+
+    throw 42;
 }
 
-int main()
-{
-try
-{
-Guard m("main");
-f();
-cout << "not printed";
-}
-catch(int x)
-{
-cout << "caught " << x;
-}
-catch(...)
-{
-cout << "other";
+int main() {
+    try {
+        Guard m("main");
+
+        f();
+
+        cout << "not printed";
+    }
+    catch (int x) {
+        cout << "caught " << x;
+    }
+    catch (...) {
+        cout << "other";
+    }
+
+    cout << endl;
+
+    return 0;
 }
 
-cout << '\n';
-}
